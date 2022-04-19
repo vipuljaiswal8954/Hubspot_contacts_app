@@ -78,7 +78,7 @@ app.get('/auth', async (req, res) => {
   
     const token = await Access.exchangeForTokens(req.sessionID, req.query.code);
     if (token.message) {
-      return res.redirect(`/error?msg=${token.message}`);
+      return res.redirect(`/vipul/error?msg=${token.message}`);
     }
     res.redirect(`/vipul`);
   }
