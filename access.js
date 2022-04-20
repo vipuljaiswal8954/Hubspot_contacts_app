@@ -6,7 +6,7 @@ const refreshTokenStore = {};
 const accessTokenCache = new NodeCache({ deleteOnExpire: true });
 const CLIENT_ID = "e8ab04bd-dac5-4f4e-9d81-be34a8865fb0";
 const CLIENT_SECRET ="292f97a2-b4c3-44cd-8bc7-e8ae3730c19d";
-const REDIRECT_URI = `https://migration.niswey.net/vipul/auth`;
+const REDIRECT_URI = `https://migration.niswey.net/vipul`;
 
 
 const exchangeForTokens = async (userId,code) => {

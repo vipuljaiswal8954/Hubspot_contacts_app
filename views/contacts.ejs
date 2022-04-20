@@ -37,11 +37,24 @@
             </tbody>
             
         </table>
-        <button class="button-33" role="button"><a href="/vipul/contacts"><%=direction%></a></button>
+        <% if(status==undefined){ %>
+            <h2>No more Contacts</h2>
+            <button  onclick="myFunction()" class="button-33" role="button"><<</button>
+          <% } else{ %>  
+            <button  onclick="myFunction()"  class="button-33" role="button">></button>
+         <% } %>
+       
     </div>
     
     <br>
+    
     <button class="button-33" role="button"> <a href="/vipul/logout">Log Out</a></button>
     
 </body>
+<script>
+    function myFunction() {
+      window.location.href = 'https://migration.niswey.net/vipul/contacts';
+
+    }
+    </script>
 </html>

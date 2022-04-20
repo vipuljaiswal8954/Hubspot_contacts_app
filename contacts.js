@@ -3,7 +3,7 @@ const hubspot=require("@hubspot/api-client");
 const getContacts=async(accessToken,next)=>{
   const hubspotClient = new hubspot.Client({"accessToken":accessToken});
 
-const limit = 10;
+const limit = 2;
 const after = next;
 const properties = [
 "phone",

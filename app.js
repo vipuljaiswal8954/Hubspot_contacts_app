@@ -19,6 +19,7 @@ const PORT =3000;
 
 
 const nextCache = new NodeCache({ deleteOnExpire: true });
+const prevCache=new NodeCache({deleteOnExpire:true});
 const userCache = new NodeCache({ deleteOnExpire: true });
 
 
@@ -27,7 +28,7 @@ const CLIENT_SECRET ="292f97a2-b4c3-44cd-8bc7-e8ae3730c19d";
 const scopes=`crm.objects.contacts.read%20crm.objects.contacts.write`
 
 
-const REDIRECT_URI = `https://migration.niswey.net/vipul/auth`;
+const REDIRECT_URI = `https://migration.niswey.net/vipul`;
 
 //===========================================================================//
 
@@ -45,9 +46,10 @@ app.get('/', async (req, res) => {
     const details = await axios.get(`https://api.hubapi.com/oauth/v1/access-tokens/${accessToken}`)
       const user_id = details.data.user
       const portal_id = details.data.hub_id
+      
 
       const userdata = {user_id :user_id, portal_id: portal_id};
-      userCache.set(req.sessionID,userdata,1800)
+      userCache.set(req.sessionID,userdata,18000)
     
     res.render("home",{userdata:userCache.get(req.sessionID)});
     
@@ -89,32 +91,43 @@ app.get('/auth', async (req, res) => {
 app.get("/contacts",async(req,res)=>{
   if (Access.isAuthorized(req.sessionID)) {
     const accessToken = await Access.getAccessToken(req.sessionID);
-    var direction="Next";
-
-    if (!nextCache.get(req.sessionID)) {
-      var contacts=await Contacts.getContacts(accessToken,undefined);
-    }
-
-    else{
-      var contacts=await Contacts.getContacts(accessToken,nextCache.get(req.sessionID));
-    }
-    if(contacts.paging!=undefined){
-      nextCache.set(req.sessionID,contacts.paging.next.after, 1800);
-    }
-    else{
-      nextCache.set(req.sessionID,undefined, 6000);
-      direction="No more Contacts";
-    }
-    
-    
+    console.log(nextCache.get(req.sessionID));
    
-    res.render("contacts", {contacts: contacts.results,direction : direction,userdata:userCache.get(req.sessionID)});
-}
+    
+    
+    if (!nextCache.get(req.sessionID)) {
+
+      var contacts=await Contacts.getContacts(accessToken,nextCache.get(req.sessionID));
+           }
+           else
+
+          {
+            var  contacts=await Contacts.getContacts(accessToken,nextCache.get(req.sessionID));
+          }
+
+    
+    
+    
+    
+    const items = contacts.paging
+    if(items!=undefined){
+      nextCache.set(req.sessionID,items.next.after, 1800);
+    }
+    else{
+      nextCache.del(req.sessionID);
+      
+    }
+    
+    
+    res.render("contacts", {contacts: contacts.results,status: items ,userdata:userCache.get(req.sessionID)});
+
+  }
 else {
   res.render("install");
 }
 res.end();
 })
+
 
 app.get("/logout",async(req,res)=>{
   req.session.destroy();
