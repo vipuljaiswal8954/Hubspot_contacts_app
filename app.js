@@ -28,7 +28,7 @@ const CLIENT_SECRET ="292f97a2-b4c3-44cd-8bc7-e8ae3730c19d";
 const scopes=`crm.objects.contacts.read%20crm.objects.contacts.write`
 
 
-const REDIRECT_URI = `https://migration.niswey.net/vipul`;
+const REDIRECT_URI = `https://migration.niswey.net/vipul/auth`;
 
 //===========================================================================//
 
