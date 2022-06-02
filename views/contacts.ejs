@@ -26,10 +26,10 @@
         <tbody>
         <%  contacts.forEach(function(contact){ %>
             <tr>
-                <td><%=contact.properties.firstname%></td>
-                <td><%=contact.properties.lastname%></td>
-                <td><%=contact.properties.email%></td>
-                <td><%=contact.properties.phone%></td> 
+                <td><%=contact.firstname%></td>
+                <td><%=contact.lastname%></td>
+                <td><%=contact.email%></td>
+                <td><%=contact.phone%></td> 
                
                 
                 </tr>
@@ -37,24 +37,18 @@
             </tbody>
             
         </table>
-        <% if(status==undefined){ %>
-            <h2>No more Contacts</h2>
-            <button  onclick="myFunction()" class="button-33" role="button"><<</button>
-          <% } else{ %>  
-            <button  onclick="myFunction()"  class="button-33" role="button">></button>
-         <% } %>
+        <form action="/contacts" method="post">
+            <button type="submit" name="prev" value="prev">Prev</button>
+            <button type ="submit" name="next" value="next"> Next</button>
+        </form>
+        
        
     </div>
     
     <br>
     
-    <button class="button-33" role="button"> <a href="/vipul/logout">Log Out</a></button>
+    <button class="button-33" role="button"> <a href="/logout">Log Out</a></button>
     
 </body>
-<script>
-    function myFunction() {
-      window.location.href = 'https://migration.niswey.net/vipul/contacts';
 
-    }
-    </script>
 </html>

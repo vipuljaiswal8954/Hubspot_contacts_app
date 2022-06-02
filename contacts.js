@@ -3,7 +3,7 @@ const hubspot=require("@hubspot/api-client");
 const getContacts=async(accessToken,next)=>{
   const hubspotClient = new hubspot.Client({"accessToken":accessToken});
 
-const limit = 5;
+const limit = 1;
 const after = next;
 const properties = [
 "phone",
@@ -17,8 +17,9 @@ const archived = false;
 
 try {
 const apiResponse = await hubspotClient.crm.contacts.basicApi.getPage(limit, after, properties, propertiesWithHistory, associations, archived);
-console.log(JSON.stringify(apiResponse, null, 2));
+
 const details= JSON.parse(JSON.stringify(apiResponse, null, 2));
+
 
 return details;
 } catch (e) {

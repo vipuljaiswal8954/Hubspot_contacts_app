@@ -4,9 +4,9 @@ const NodeCache = require('node-cache');
 
 const refreshTokenStore = {};
 const accessTokenCache = new NodeCache({ deleteOnExpire: true });
-const CLIENT_ID = "e8ab04bd-dac5-4f4e-9d81-be34a8865fb0";
-const CLIENT_SECRET ="292f97a2-b4c3-44cd-8bc7-e8ae3730c19d";
-const REDIRECT_URI = `https://migration.niswey.net/vipul/auth`;
+const CLIENT_ID = "07f94d35-172a-4c67-b274-d9d39335d1a6";
+const CLIENT_SECRET ="1083637c-98ab-45ec-9302-4d2c51e2577b";
+const REDIRECT_URI = `http://localhost:3000/auth`;
 
 
 const exchangeForTokens = async (userId,code) => {
