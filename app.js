@@ -36,7 +36,9 @@ const scopes=`crm.objects.contacts.read%20crm.objects.contacts.write`
 const REDIRECT_URI = `https://migration.niswey.net/vipul/auth`;
 
 class Stack {
-  items = []
+  constructor(){
+    this.items=[];
+  }
   push = (element) => this.items.push(element)
   pop = () => this.items.pop()
   top=()=> this.items[this.items.length-1]
