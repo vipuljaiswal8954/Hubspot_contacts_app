@@ -33,7 +33,7 @@ const CLIENT_SECRET ="1083637c-98ab-45ec-9302-4d2c51e2577b";
 const scopes=`crm.objects.contacts.read%20crm.objects.contacts.write`
 
 
-const REDIRECT_URI = `http://localhost:3000/auth`;
+const REDIRECT_URI = `https://migration.niswey.net/vipul/auth`;
 
 class Stack {
   items = []
@@ -95,9 +95,9 @@ app.get('/auth', async (req, res) => {
   
     const token = await Access.exchangeForTokens(req.sessionID, req.query.code);
     if (token.message) {
-      return res.redirect(`/error?msg=${token.message}`);
+      return res.redirect(`/vipul/error?msg=${token.message}`);
     }
-    res.redirect(`/`);
+    res.redirect(`/vipul`);
   }
 });
 
@@ -140,7 +140,7 @@ app.get("/contacts",async(req,res)=>{
      console.log(contacts);
     
     
-    res.render("contacts", {contacts: contacts,next:next,userdata:userCache.get(req.sessionID)});;
+    res.render("contacts", {contacts: contacts,userdata:userCache.get(req.sessionID)});;
   }
 else {
   res.render("install");
@@ -158,7 +158,7 @@ app.post("/contacts",async(req,res)=>{
     next=page.pop()
     // next=page.pop()
   }
-  res.redirect("/contacts");
+  res.redirect("/vipul/contacts");
 })
 app.get("/logout",async(req,res)=>{
   req.session.destroy();
